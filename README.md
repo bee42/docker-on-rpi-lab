@@ -1,4 +1,8 @@
-# docker-on-rpi-lab
+# Docker Raspberry-Pi-3 Swarming Lab
+
+Testaufbau und Beispiele für das Docker Meetup Bochum 25.10.2016
+
+* http://www.meetup.com/de-DE/Docker-Bochum/events/234324255/
 
 ![](images/ship-container-with-a-bee.png)
 
@@ -157,12 +161,14 @@ https://github.com/DieterReuter/arm-docker-fixes/tree/master/001-fix-docker-mach
 
 ## Router konfigurieren
 
+**TODO**
 * s.h Rolands Pi Konfig
 * Bilder und Screenshots
 
 # Docker Swarming
 
 Was ist das?
+**TODO**
 
 ## Cluster initiieren
 
@@ -195,7 +201,12 @@ $ docker swarm join --token "super-secret" ip:2377
 ## Entfernen von Flash
 
 ```bash
-sudo rm /usr/local/bin/flash
+$ sudo rm /usr/local/bin/flash
 ```
 
 ## Entfernen der Zertifkate
+
+
+```bash
+$ rm -rf beehive
+```
