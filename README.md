@@ -1,6 +1,6 @@
 # docker-on-rpi-lab
 
-![](images/ship-container-with-a-bee.png)
+![](images/ship-container-with-a-bee.png =250x250)
 
 ## Aufbau des Labs - beehive
 
