@@ -10,7 +10,17 @@ Die beschriebene Idee sind die Dokumentation des Testaufbau's und die Beispiele 
 
 ![](images/ship-container-with-a-bee.png)
 
-## Aufbau des Labs - beehive
+## Aufbau des Labs - Create a running docker beehive
+
+Damit verschiedene Crew beehive im Lab separate arbeiten können habe wir
+einen [Clear Fog PRO](https://www.solid-run.com/marvell-armada-family/clearfog/)- Router von SolidRun eingesetzt. Dieser Router bildet das Gateway zum Internet und hostet die Lab Docker-Registry. Der Clear Fog ist unsere Queens Hive :honeybee:
+
+* https://blog.hypriot.com/post/introducing-the-clearfog-pro-router-board/
+* https://blog.hypriot.com/post/clearfog-pro-part-2-lets-run-docker/
+
+![](images/rpi-lab-beehive.png)
+
+Der erste Testaufbau von Niclas ist uns mit einem [ODROID-XU3](http://odroid.com/dokuwiki/doku.php?id=en:odroid-xu3) gelungen:
 
 ![](images/docker-swarming-at-pi.jpg)
 
