@@ -67,7 +67,7 @@ $ mkdir OS-Images
 $ cd OS-Images
 $ HOS_VERSION=1.1.0
 $ HOS_URL=https://github.com/hypriot/image-builder-rpi/releases/download
-$ curl -LO ${HOS_URL}/v${HOS_VERSION}hypriotos-rpi-v${HOS_VERSION}.img.zip
+$ curl -LO ${HOS_URL}/v${HOS_VERSION}/hypriotos-rpi-v${HOS_VERSION}.img.zip
 ```
 
 Entpacken des Images:
