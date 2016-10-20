@@ -199,7 +199,12 @@ https://github.com/DieterReuter/arm-docker-fixes/tree/master/001-fix-docker-mach
 ![](images/docker-swarm-logo.png)
 
 Was ist das?
+
 **TODO**
+
+* https://blog.docker.com/2016/07/swarm-mode-on-a-raspberry-pi-cluster/
+* https://blog.hypriot.com/post/deploy-swarm-on-chip-with-docker-machine/
+* https://medium.com/@bossjones/how-i-setup-a-raspberry-pi-3-cluster-using-the-new-docker-swarm-mode-in-29-minutes-aa0e4f3b1768#.e7v3b6xer
 
 ## Cluster initiieren
 
@@ -224,10 +229,86 @@ $ docker swarm join --token "super-secret" ip:2377
 
 ## Beispiel für den Start eines Services
 
+### Examples whoami
+
+**TODO**: Portierung auf PI?
+
+* https://github.com/emilevauge/whoamI
+
+```
+$ docker run -d -P --name iamfoo emilevauge/whoami
+$ docker inspect --format '{{ .NetworkSettings.Ports }}'  iamfoo
+map[80/tcp:[{0.0.0.0 32769}]]
+$ curl "http://0.0.0.0:32769"
+Hostname :  6e0030e67d6a
+IP :  127.0.0.1
+IP :  ::1
+IP :  172.17.0.27
+IP :  fe80::42:acff:fe11:1b
+GET / HTTP/1.1
+Host: 0.0.0.0:32769
+User-Agent: curl/7.35.0
+Accept: */*
+```
+
+### Erzeugen einen Service und skalieren
+
+```
+$ docker service create --name whoami emilevauge/whoami
+$ docker service update --replicas 2  whoami
+$ docker service inspect whoami
+[
+    {
+        "ID": "ch1cizq1k61qigbswzdd0sryj",
+        "Version": {
+            "Index": 717
+        },
+        "CreatedAt": "2016-06-19T11:01:39.630354919Z",
+        "UpdatedAt": "2016-06-19T11:02:20.137102719Z",
+        "Spec": {
+            "Name": "whoami",
+...
+]
+$ docker service inspect whoami |jq "{ name: .[].Spec.Name , replicas: .[].Spec.Mode.Replicated.Replicas}"
+{
+  "name": "whoami",
+  "replicas": 2
+}
+```
+
+### Rolling Update
+
 **TODO**
 
-# Aufräumen des Host-Systems
+### cadvisor auf allen Cluster Devices
 
+**TODO**: erzeuge ein cadvisor ARM image
+
+```
+$ docker service create --name cadvisor --mode global \
+ --mount type=bind,source=/,target=/rootfs/,writable=false \
+ --mount type=bind,source=/var/run/,target=/var/run/ \
+ --mount type=bind,source=/sys/,target=/sys/,writable=false \
+ --mount type=bind,source=/var/lib/docker/,target=/var/lib/docker/,writable=false \
+  --publish 8080:8080 \
+  google/cadvisor:latest
+```
+
+### Finde neue Möglichkeiten für Deinen RPI Docker Cluster
+
+#### Steuerung von Devices
+
+#### Portierung von DockerCraft
+
+* https://github.com/docker/dockercraft
+* http://minecraft-de.gamepedia.com/Steuerung
+
+**TODO**: Add swarming mode
+* Access Docker daemon remote with certs
+* Read docker service info
+  * see Traefik server plugin for swarming
+
+# Aufräumen des Host-Systems
 
 ## Entfernen von Flash
 
