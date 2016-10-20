@@ -127,11 +127,19 @@ $ ssh pirate@<ip>
 $ docker info
 $ docker version
 ```
+Im Blog der Hypriot Piraten findet Ihr jede Mengen Erklärungen zum Thema Docker on ARM:
+
+* https://blog.hypriot.com/getting-started-with-docker-on-your-arm-device/
+* https://hub.docker.com/u/hypriot/
 
 ## Docker Engines der Pi's auf dem Mac verfügbar machen
 
+![](images/docker-machine-logo.png)
+
 * Mehrere PI's mit Machine Remote verfügbar machen
 * https://github.com/docker/machine/pull/3605#issuecomment-239624969
+
+**WARNING**: Bitte diese Befehle nicht auf den Crew Pi's anwenden, sonst werden die verteilen Zertifikate ersetzt und die anderen Crew Mitglieder haben keinen Zugang mehr zu den Pi's.
 
 ```
 #!/bin/sh
@@ -188,6 +196,8 @@ https://github.com/DieterReuter/arm-docker-fixes/tree/master/001-fix-docker-mach
 
 # Docker Swarming
 
+![](images/docker-swarm-logo.png)
+
 Was ist das?
 **TODO**
 
@@ -230,4 +240,13 @@ $ sudo rm /usr/local/bin/flash
 
 ```bash
 $ rm -rf beehive
+```
+
+![](images/docker-family.png)
+
+Viel Spaß
+
+```
+Peter Roßbach <peter.rossbach@bee42.com> @PRossbach
+Niclas Mietz <niclas.mietz@bee42.com> @solidnerd
 ```
