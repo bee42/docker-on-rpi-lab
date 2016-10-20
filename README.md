@@ -1,6 +1,10 @@
 # Docker Raspberry-Pi-3 Swarming Lab
 
-Testaufbau und Beispiele für das Docker Meetup Bochum 25.10.2016
+Docker verursacht eine systemische Singularität nicht nur im Bereich der Virtualisierung. Das aktuelle Docker Release 1.12 ist ein enormer Schritt in ein neues Zeitalter der IT, wenn Docker nun auf Windows, Linux und Low-Power-ARM-Geräte bereitsteht. Sehr viele bestehende Hindernisse der IT existieren mit dem Einsatz von Docker einfach nicht mehr. Die Kooperation von Anwendungen und Entwicklern ist ein großes Stück vereinfacht worden. Die Bereitstellung von Software ist durch Docker wesentlich beschleunigt und mit dem Einsatz der Werkzeuge und Plattformen aus dem Docker-Ökosystem sicherer geworden. Das Erkennen und Beheben von Engpässen hat sich vereinfacht. Die Analyse der Probleme von Systemen ist nun vor der Produktion durch die Entwickler und Administratoren gemeinsam möglich. Mit dem Docker Release 1.12.x steht Docker auf Embedded Systems bereit und das ist eine wirkliche Bereicherung. Nach unten skalieren auf das absolute Minimum, beschleunigt die Entwicklung und bereitet Dich persönlich darauf vor, im wirklich großen Stil zu liefern.
+
+In diesem Docker-Lab wird erklärt, wie Du Deinen kompletten Software-Stack auf einem Raspberry-Pi-3 Cluster bereitstellen kannst. Es werden die Grundlagen des Docker Swarming Mode erklärt und welche Use Case auf einem PI heute schon mit Docker möglich sind.
+
+Die beschriebene Idee sind die Dokumentation des Testaufbau's und die Beispiele für das Docker Meetup Bochum 25.10.2016.
 
 * http://www.meetup.com/de-DE/Docker-Bochum/events/234324255/
 
@@ -29,7 +33,6 @@ Stand 2016-10. ca. 232 Euro
 | 1      | [USB Stromgerät](http://www.amazon.de/dp/B00PTLSH9G)         | 30 EUR     |
 | 1      | [Gehäuse](http://www.amazon.de/dp/B00NB1WPEE)                | 10 EUR     |
 | 2      | [Zwischenplatten](http://www.amazon.de/dp/B00NB1WQZW)        | 2 * 7 EUR  |
-
 
 ## SD Karten für den Cluster vorbereiten
 
@@ -60,7 +63,7 @@ $ curl -LO ${HOS_URL}/v${HOS_VERSION}hypriotos-rpi-v${HOS_VERSION}.img.zip
 Entpacken des Images:
 
 ```bash
-unzip hypriotos-rpi-v1.1.0.img.zip
+$ unzip hypriotos-rpi-v1.1.0.img.zip
 ```
 
 ### Erstellen der Konfiguration `device_init.yaml`
@@ -94,17 +97,25 @@ $ flash -c device_init.yaml hypriotos-rpi-v1.1.0.img
 Nach dem Einsetzen der Karten könnt Ihr den Raspberry-PI starten. Wenn alles geklappt sollte dieser mit dem WLAN verbunden sein. Nun könnt Ihr Euch mit dem PI per SSH verbinden.
 
 ```bash
-$ssh pirate@<ip>
+$ ssh pirate@<ip>
 ```
 
-__Frage__: Wie bekommt heraus welche IP dem PI zugeordnet wurde?
+__Frage__: Wie bekommt eigentlich heraus welche IP dem PI vom DHCP Server zugeordnet wurde?
+
+```
+# install nmap
+$ brew install nmap
+$ nmap -sn 192.168.1.0/24
+```
 
 Das Passwort für den User pirate lautet: **Hypriot**. Nun ist Euer PI für die Orchestrierung mit einem Docker Swarm Clusters bereit.
 
 Ob Docker überhaupt korrekt installiert ist, könnt Ihr folgendermassen testen:
 
 ```bash
+$ ssh pirate@<ip>
 $ docker info
+$ docker version
 ```
 
 ## Docker Engines der Pi's auf dem Mac verfügbar machen
