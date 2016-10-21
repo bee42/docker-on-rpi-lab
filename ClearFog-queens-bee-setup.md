@@ -31,6 +31,9 @@ $ ls /dev/tty.usbserial--*
 tty.usbserial-DJ00HMV3
 $ screen /dev/tty.usbserial-DJ00HMV3 115200
 # enter root/1234, setup better password and create new regina user
+# set hostname to queenshive
+$ hostnamectl set-hostname queenshive
+$ reboot
 $ fdisk -l
 # create primary partition
 $ fdisk /dev/sda
