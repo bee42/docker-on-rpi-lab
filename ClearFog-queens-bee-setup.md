@@ -125,7 +125,30 @@ registry:
 docker pull hypriot/hypriot/rpi-alpine-scratch
 docker tag hypriot/rpi-alpine-scratch 127.0.0.1:5000/hypriot/rpi-alpine-scratch
 
-## Hypriot Schatzkiste
+### rpi-alpine
+
+```
+$ mkdir -p rpi-alpine
+$ cd rpi-alpine
+$ cat >Dockerfile <<EOF
+FROM hypriot/rpi-alpine-scratch
+
+RUN apk update \
+ && apk upgrade \
+ && apk add bash \
+ && rm -rf /var/cache/apk/*
+
+CMD ["/bin/bash"]
+EOF
+$ docker build -t bee42/rpi-alpine .
+$ docker run -ti --rm bee42/rpi-alpine
+> ls -l
+> CTRL-C
+$ docker tag bee42/rpi-alpine 127.0.0.1:5000/bee42/rpi-alpine
+$ docker push 127.0.0.1:5000/bee42/rpi-alpine
+```
+
+## Hypriot Schatzkiste - docker tools
 
 * https://packagecloud.io/Hypriot/Schatzkiste/install
 
@@ -163,7 +186,13 @@ echo ":set term=ansi" >>/root/.vimrc
 ##  Routing
 
 * http://www.cyberciti.biz/faq/linux-route-add/
+* http://www.it-academy.cc/article/330/Das+Kommando+route+und+Routinggrundlagen.html
 
+```
+$ sysctl -w net.ipv4.ip_forward=1
+$ route add -net 192.168.1.0 netmask 255.255.255.0 gw 192.168.178.100
+$ route del -net 192.168.1.0 netmask 255.255.255.0
+```
 
 ## Provision PI's with ssl and swarm init
 

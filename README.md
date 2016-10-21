@@ -134,6 +134,21 @@ Im Blog der Hypriot Piraten findet Ihr jede Mengen Erklärungen zum Thema Docker
 * https://blog.hypriot.com/getting-started-with-docker-on-your-arm-device/
 * https://hub.docker.com/u/hypriot/
 
+## Aktiviere Docker Registry auf Deinem PI
+
+```
+$ cat >/etc/docker/daemon.json <<EOF
+{
+ "insecure-registries": [ "beehive:5000", "192.168.178.97:5000" ]
+}
+EOF
+$ systemctl restart docker.service
+$ cat >> /etc/hosts <<EOF
+192.168.178.97 beehive
+EOF
+$ docker run -ti --rm beehive:5000/bee42/rpi-alpine
+```
+
 ## Docker Engines der Pi's auf dem Mac verfügbar machen
 
 ![](images/docker-machine-logo.png)
@@ -143,22 +158,91 @@ Im Blog der Hypriot Piraten findet Ihr jede Mengen Erklärungen zum Thema Docker
 
 **WARNING**: Bitte diese Befehle nicht auf den Crew Pi's anwenden, sonst werden die verteilen Zertifikate ersetzt und die anderen Crew Mitglieder haben keinen Zugang mehr zu den Pi's.
 
+
+[Create SSH Key](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/#generating-a-new-ssh-key)
+
+```
+$ ssh-copy-id pirate@192.168.1.001
+```
+
+FIX docker-machine ssh for hypriot os
+
+* https://github.com/DieterReuter/arm-docker-fixes/tree/master/001-fix-docker-machine-1.8.0-create-for-arm
+
+```
+$ ssh pirate@192.168.1.001
+> curl -sSL https://github.com/DieterReuter/arm-docker-fixes/raw/master/001-fix-docker-machine-1.8.0-create-for-arm/apply-fix-001.sh | bash
+> exit
+```
+
 ```
 #!/bin/sh
 set -x
 
 # access the Raspberry Pi running Raspbian/Jessie
-IPADDRESS=192.168.2.115
-PI_USERNAME=pi
-PI_PASSWORD=raspberry
+IPADDRESS=192.168.1.001
+PI_HOSTNAME=bee42-crew-01-001
+PI_USERNAME=pirate
+PI_PASSWORD=hypriot
 
 # deploy a Docker 1.12.1 on ARMv6 or ARMv7 Raspbian/Jessie
+mkdir -p /ssd/beehive-world
 docker-machine --debug create \
+  --storage-path=/ssd/beehive-world/ \
+  --engine-storage-driver=overlay \
   --driver=generic \
   --generic-ip-address=$IPADDRESS \
   --generic-ssh-user=$PI_USERNAME \
   --engine-install-url=https://get.docker.com/ \
-  pi
+  $PI_HOSTNAME
+```
+
+```
+#!/bin/bash
+set -e
+
+CREW_NUMBER=01
+MACHINE_ID=002
+MACHINE_NAME="bee42-crew-$CREW_NUMBER-$MACHINE_ID"
+
+IP_ADDRESS=192.168.1.101
+SSH_PORT=22
+
+PI_USERNAME=pirate
+PI_PASSWORD=hypriot
+
+SSH_KEY_SIZE=4096
+SSH_KEY_ALGO=rsa
+
+STORAGE_PATH=$PWD/machine-config
+
+#if [ -f "$HOME/.ssh/id_rsa.pub" ]; then
+
+#  ssh -p $SSH_PORT -q $PI_USERNAME@$IP_ADDRESS exit
+ # if [ $? -ne 0 ]; then
+  #  echo "Copy SSH Key to: \n $PI_USERNAME@$IP_ADDRESS:$IP_PORT "
+   #ssh-copy-id "$PI_USERNAME@$IP_ADDRESS -p $SSH_PORT"
+  #fi
+#else
+
+ # echo "Generate Key for User $(whomai)"
+  #ssh-keygen -t $SSH_KEY_ALGO -b $SSH_KEY_SIZE
+
+  #echo "Copy SSH Key to: \n $PI_USERNAME@$IP_ADDRESS:$IP_PORT "
+  #ssh-copy-id "$PI_USERNAME@$IP_ADDRESS -p $SSH_PORT"
+#fi
+
+# deploy a Docker 1.12.1 on ARMv6 or ARMv7 Raspbian/Jessie
+docker-machine --debug --storage-path=$STORAGE_PATH create \
+  --driver=generic \
+  --generic-ip-address=$IP_ADDRESS \
+  --generic-ssh-port=$SSH_PORT \
+  --generic-ssh-user=$PI_USERNAME \
+  --engine-install-url=https://get.docker.com/ \
+  --engine-storage-driver=overlay \
+  $MACHINE_NAME
+
+echo "Now lets connect to the machine"
 ```
 
 ### Zertifikate herunterladen und Remote nutzen
@@ -230,6 +314,21 @@ $ docker swarm join --token "super-secret" ip:2377
 ```
 
 ## Beispiel für den Start eines Services
+
+### Install newest go lang version at your pi
+
+```
+$ VERSION=1.7.3
+$ OS=linux
+$ ARCH=armv6l
+$ wget -L https://storage.googleapis.com/golang/go$VERSION.$OS-$ARCH.tar.gz
+$ tar -C /usr/local -xzf go$VERSION.$OS-$ARCH.tar.gz
+$ export PATH=$PATH:/usr/local/go/bin
+cat >>$HOME/.profile <<EOF
+export GOROOT=\$HOME/go
+export PATH=\$PATH:\$GOROOT/bin
+EOF
+```
 
 ### Examples whoami
 
