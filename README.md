@@ -118,11 +118,13 @@ $ brew install nmap
 $ nmap -sn 192.168.1.0/24
 ```
 
-Das Passwort für den User pirate lautet: **Hypriot**. Nun ist Euer PI für die Orchestrierung mit einem Docker Swarm Clusters bereit.
+Das Passwort für den Nutzer __pirate__ lautet: **hypriot**. Nun ist Euer PI für die Orchestrierung mit einem Docker Swarm Clusters bereit.
 
 Ob Docker überhaupt korrekt installiert ist, könnt Ihr folgendermassen testen:
 
 ```bash
+# password hypriot
+# <ip> 192.168.1.100 | 192.168.1.101 | 192.168.1.102 
 $ ssh pirate@<ip>
 $ docker info
 $ docker version

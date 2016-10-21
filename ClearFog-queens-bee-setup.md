@@ -59,11 +59,16 @@ $ docker info
 
 # Setup more parameter
 * https://docs.docker.com/engine/reference/commandline/dockerd/
-
+* https://gist.github.com/solidnerd/71825ac4f1d6d475f60aaf8e62009926
 
 ## Setup registry
 
-make at your mac
+![](images/docker-distribution-logo.png)
+
+make at clearfog don`t work.
+
+* old go
+* wrong dependencies to distribution head imports
 
 ```
 $ apt-get update
@@ -107,6 +112,19 @@ volumes:
 * Create Auth
 * get docker Compose
 
+```
+registry:
+  restart: always
+  image: silverwind/armhf-registry
+  ports:
+    - 5000:5000
+  volumes:
+    - /ssd/registry:/data
+```
+
+docker pull hypriot/hypriot/rpi-alpine-scratch
+docker tag hypriot/rpi-alpine-scratch 127.0.0.1:5000/hypriot/rpi-alpine-scratch
+
 ## Hypriot Schatzkiste
 
 * https://packagecloud.io/Hypriot/Schatzkiste/install
@@ -116,9 +134,46 @@ $ curl -s https://packagecloud.io/install/repositories/Hypriot/Schatzkiste/scrip
 $ apt-get install docker-compose docker-machine
 ```
 
-* bash completion
+### bash completion?
+
+```
+#!/bin/bash
+
+COMPOSE_VERSION=1.8.1
+MACHINE_VERSION=v0.8.2
+
+curl -Ls https://raw.githubusercontent.com/docker/compose/${COMPOSE_VERSION}/contrib/completion/bash/docker-compose > /etc/bash_completion.d/docker-compose
+chmod +xr /etc/bash_completion.d/docker-compose
+curl -Ls https://raw.githubusercontent.com/docker/docker/master/contrib/completion/bash/docker > /etc/bash_completion.d/docker
+chmod +xr /etc/bash_completion.d/docker
+curl -Ls https://raw.githubusercontent.com/docker/machine/${MACHINE_VERSION}/contrib/completion/bash/docker-machine.bash > /etc/bash_completion.d/docker-machine
+curl -Ls https://raw.githubusercontent.com/docker/machine/${MACHINE_VERSION}/contrib/completion/bash/docker-machine-wrapper.bash > /etc/bash_completion.d/docker-machine-wrapper
+curl -Ls https://raw.githubusercontent.com/docker/machine/${MACHINE_VERSION}/contrib/completion/bash/docker-machine-prompt.bash > /etc/bash_completion.d/docker-machine-prompt
+chmod +xr /etc/bash_completion.d/docker-machine*
+
+cat >>/etc/profile <<EOF
+if [ -f /etc/bash_completion ]; then
+ . /etc/bash_completion
+fi
+EOF
+
+echo ":set term=ansi" >>/root/.vimrc
+```
+
+##  Routing
+
+* http://www.cyberciti.biz/faq/linux-route-add/
+
 
 ## Provision PI's with ssl and swarm init
 
 * Create Certs and open remote docker engines.
 * example swarm init with docker machine config?
+
+## access from your Mac
+
+```
+$ brew install tmate.io
+```
+
+* https://tmate.io/
