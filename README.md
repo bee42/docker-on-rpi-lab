@@ -310,6 +310,8 @@ Was ist das?
 * https://blog.docker.com/2016/07/swarm-mode-on-a-raspberry-pi-cluster/
 * https://blog.hypriot.com/post/deploy-swarm-on-chip-with-docker-machine/
 * https://medium.com/@bossjones/how-i-setup-a-raspberry-pi-3-cluster-using-the-new-docker-swarm-mode-in-29-minutes-aa0e4f3b1768#.e7v3b6xer
+* http://blog.alexellis.io/docker-swarm-mode-part1/
+* http://blog.alexellis.io/microservice-swarm-mode/
 
 ## Cluster initiieren
 
@@ -415,6 +417,48 @@ $ docker service create --name cadvisor --mode global \
 ```
 
 ### Finde neue Möglichkeiten für Deinen RPI Docker Cluster
+
+#### UUID
+
+build examples
+
+```
+cd examples/docker/rpi-tomcat-8
+cat >Dockerfile.uuid <<EOF
+FORM bee42/rpi-tomcat:rpi-8
+ADD webapps/uuid /opt/tomcat/webapps/uuid
+EOF
+docker build -t bee42/uuid -f Dockerfile.uuid .
+docker tag bee42/uuid queenshive:5000/bee42/uuid
+```
+
+play around
+
+```
+$ ssh pirate@192.168.3.1
+> docker service create --publish 9000:9000 --name guid queenshive:5000/bee42/uuid
+> docker service ls
+> curl localhost:9000/guid
+> docker service scale guid=3
+> curl localhost:9000/guid
+> curl localhost:9000/guid
+> curl localhost:9000/guid
+> docker service scale guid=0
+> docker service rm guid
+> docker service ls
+> exit
+```
+
+* Create a newer version
+* generate a moderate load with a simple foreach statement
+* Deploy next version with rolling update
+* Setup ping HEALTHCHECK
+  * Memory
+  * CPU
+  * To much Threas
+  * Availability service
+* Setup Traefik
+  * auto swarming mode
 
 #### Steuerung von Devices
 
