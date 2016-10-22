@@ -30,7 +30,7 @@ einen [Clear Fog PRO](https://www.solid-run.com/marvell-armada-family/clearfog/)
 
 Weitere Informationen zum Setup der [Queens hive](ClearFog-queens-bee-setup.md) stehen zur Verfügung.
 
-![](images/beehive-test-setup.png)
+![](images/beehive-test-setup.jpg)
 
 ### Alternative
 
