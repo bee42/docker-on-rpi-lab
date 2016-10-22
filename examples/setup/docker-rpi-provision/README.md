@@ -5,22 +5,26 @@ rpi-provision
 
 1. Clone the Repository and switch to it.
 
-2. docker-compose build
+2. `docker-compose build`
 
-3. docker-compose run --rm rpi-provision
+3. Edit `rpi-provision.env` like you want .
 
-4. sudo ln -s  $(pwd)/config /machine
+4. `docker-compose run --rm rpi-provision`
 
-5. docker-machine --storage-path=$(pwd)/config/.docker-machine  ls
+5. `sudo ln -s  $(pwd)/config /machine`
 
-6. Connect via SSH 
+6. `docker-machine --storage-path=$(pwd)/config/.docker-machine  ls`
+
+7. Connect via SSH 
+
 ```bash
-docker-machine --storage-path=$(pwd)/config/.docker-machine  ssh bee42-crew-01-001
+docker-machine --storage-path=$(pwd)/config/.docker-machine  ssh bee42-crew-xx-xx
 ```
-7. Connect to DAEMON
+
+8. Connect to Engine
 
 ```bash
-docker-machine --storage-path=$(pwd)/config/.docker-machine  env bee42-crew-01-001
+docker-machine --storage-path=$(pwd)/config/.docker-machine  env bee42-crew-xx-xxx
 ```
 #WIP AREA
 
