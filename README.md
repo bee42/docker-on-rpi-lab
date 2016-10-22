@@ -107,12 +107,12 @@ Hier ist eine Beispiel für eine `device_init.yaml`:
 
 
 ```yml
-hostname: "black-pearl"
+hostname: "bee42-crew-01-001"
 wifi:
   interfaces:
     wlan0:
-      ssid: "MyNetwork"
-      password: "secret_password"
+      ssid: "bee42-crew-01"
+      password: "beehive42"
 ```
 
 **Bitte** die Änderung des Hostnames und der Zugangsdaten des Routers (SSID und password) vornehmen.
