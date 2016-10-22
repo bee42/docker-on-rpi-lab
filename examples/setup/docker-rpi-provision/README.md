@@ -5,15 +5,15 @@ rpi-provision
 
 1. Clone the Repository and switch to it.
 
-2. docker-compose build
+2. `docker-compose build`
 
-3. Edit rpi-provision.env like you want .
+3. Edit `rpi-provision.env` like you want .
 
-4. docker-compose run --rm rpi-provision
+4. `docker-compose run --rm rpi-provision`
 
-5. sudo ln -s  $(pwd)/config /machine
+5. `sudo ln -s  $(pwd)/config /machine`
 
-6. docker-machine --storage-path=$(pwd)/config/.docker-machine  ls
+6. `docker-machine --storage-path=$(pwd)/config/.docker-machine  ls`
 
 7. Connect via SSH 
 
