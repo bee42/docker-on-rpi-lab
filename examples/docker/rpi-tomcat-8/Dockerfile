@@ -1,4 +1,4 @@
-FROM bee42/rpi-java:jre-8
+FROM bee42/rpi-java:8-jre
 
 MAINTAINER Peter Rossbach <peter.rossbach@bee42.com> @PRossbach
 
