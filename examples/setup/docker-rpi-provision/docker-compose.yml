@@ -1,0 +1,10 @@
+version: '2'
+services:
+  rpi-provision:
+    image: rpi-provision
+    build: .
+    volumes:
+    - ./config/.docker-machine/:/machine/.docker-machine/:rw
+    - ./config/.ssh/:/machine/.ssh/:rw
+    env_file:
+    - ./rpi-provision.env
