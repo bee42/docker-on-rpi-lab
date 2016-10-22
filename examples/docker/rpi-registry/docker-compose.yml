@@ -1,0 +1,7 @@
+registry:
+  restart: always
+  image: silverwind/armhf-registry
+  ports:
+    - 5000:5000
+  volumes:
+    - /ssd/registry:/data

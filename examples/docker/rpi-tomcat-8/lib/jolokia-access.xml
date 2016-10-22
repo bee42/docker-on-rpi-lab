@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<restrict>
+
+  <remote>
+    <host>127.0.0.1</host>
+  </remote>
+
+  <http>
+    <method>get</method>
+    <method>post</method>
+  </http>
+
+  <commands>
+    <command>read</command>
+    <command>list</command>
+    <command>version</command>
+  </commands>
+
+  <allow>
+    <mbean>
+      <name>java.lang:type=Memory</name>
+      <operation>gc</operation>
+    </mbean>
+  </allow>
+
+  <allow>
+    <mbean>
+      <name>Catalina:*</name>
+      <attribute>properties</attribute>
+    </mbean>
+    <mbean>
+      <name>java.lang:*</name>
+      <attribute>properties</attribute>
+    </mbean>
+  </allow>
+
+</restrict>

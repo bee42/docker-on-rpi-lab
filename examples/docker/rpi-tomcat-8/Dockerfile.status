@@ -1,0 +1,3 @@
+FROM hypriot/rpi-alpine-scratch 
+ADD webapps/status /opt/tomcat/webapps/status
+VOLUME /opt/tomcat/webapps/status

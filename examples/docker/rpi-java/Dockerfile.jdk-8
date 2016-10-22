@@ -1,0 +1,17 @@
+FROM resin/rpi-raspbian:jessie
+MAINTAINER Peter Rossbach <peter.rossbach@bee42.com> @PRossbach
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    openjdk-8-jdk \
+    --no-install-recommends && \
+    rm -rf /var/lib/apt/lists/*
+
+# Define working directory
+WORKDIR /data
+
+# Define commonly used JAVA_HOME variable
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-armhf
+
+# Define default command
+CMD ["bash"]

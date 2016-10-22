@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Server port="-1">
+  <Listener className="org.apache.catalina.startup.VersionLoggerListener" />
+  <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
+  <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
+  <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
+  <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
+
+  <GlobalNamingResources>
+    <Resource name="UserDatabase"
+      auth="Container"
+      type="org.apache.catalina.UserDatabase"
+      description="User database that can be updated and saved"
+             factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
+      pathname="conf/tomcat-users.xml" />
+  </GlobalNamingResources>
+
+  <Service name="Catalina">
+    <Executor name="tomcatThreadPool" namePrefix="catalina-exec-"
+        maxThreads="${tomcat.maxThreads}" minSpareThreads="${tomcat.minSpareThreads}"/>
+
+    <Connector port="8080"
+      executor="tomcatThreadPool"
+      URIEncoding="UTF-8"
+      protocol="HTTP/1.1"
+      connectionTimeout="${tomcat.httpTimeout}"
+    />
+    <Connector port="8009"
+      URIEncoding="UTF-8"
+      enableLookups="false"
+      connectionTimeout="${tomcat.ajpTimeout}"
+      executor="tomcatThreadPool"
+      protocol="AJP/1.3"
+    />
+    <Engine name="Catalina"
+      defaultHost="localhost">
+      <Realm className="org.apache.catalina.realm.LockOutRealm">
+        <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
+               resourceName="UserDatabase"/>
+      </Realm>
+
+      <Host name="localhost"
+          appBase="webapps"
+          unpackWARs="false"
+          autoDeploy="false">
+          <Valve className="io.infrabricks.catalina.valves.AccessLogStdoutValve"
+            pattern="%{begin:yyyy-MM-dd'T'HH:mm:ss:SSSZ}t org.apache.catalina.valves.AccessLogValve access INFO: %h &quot;%r&quot; &quot;%{Referer}i&quot; &quot;%{User-Agent}i&quot; %s %b &quot;%I&quot; %D %S" />
+          </Host>
+    </Engine>
+  </Service>
+</Server>
