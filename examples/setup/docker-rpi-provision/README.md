@@ -1,9 +1,13 @@
-rpi-provision 
-=============
+# rpi lab provisioning
 
-# Quickstart
+## Quick setup
 
 1. Clone the Repository and switch to it.
+
+```
+$ git clone https://github.com/bee42/docker-on-rpi-lab
+$ cd docker-on-rpi-lab/examples/setup/docker-rpi-provision
+```
 
 2. `docker-compose build`
 
@@ -15,36 +19,32 @@ rpi-provision
 
 6. `docker-machine --storage-path=$(pwd)/config/.docker-machine  ls`
 
-7. Connect via SSH 
+7. Connect via SSH
 
 ```bash
-docker-machine --storage-path=$(pwd)/config/.docker-machine  ssh bee42-crew-xx-xx
+$ docker-machine --storage-path=$(pwd)/config/.docker-machine  ssh bee42-crew-xx-xx
 ```
 
 8. Connect to Engine
 
 ```bash
-docker-machine --storage-path=$(pwd)/config/.docker-machine  env bee42-crew-xx-xxx
+$ docker-machine --storage-path=$(pwd)/config/.docker-machine  env bee42-crew-xx-xxx
 ```
-#WIP AREA
+## WIP AREA
 
-# Configuration Parameters
-| Parameter | Description |
-|-----------|-------------|
-| `CREW_NUMBER` | |
-| `MACHINE_ID` |  |
-| `CONFIG_PATH` |  |
-| `STORAGE_PATH` |  |
-| `SSH_KEY_PATH` |  |
-| `SSH_PORT` |  |
-| `SSH_KEY_SIZE` |  Defaults to `4096`|
-| `SSH_KEY_ALGO` | Defaults to `rsa`|
+### Configuration Parameters
+| Parameter      | Description        |
+|:---------------|:-------------------|
+| `CREW_NUMBER`  |                    |
+| `MACHINE_ID`   |                    |
+| `CONFIG_PATH`  |                    |
+| `STORAGE_PATH` |                    |
+| `SSH_KEY_PATH` |                    |
+| `SSH_PORT`     |                    |
+| `SSH_KEY_SIZE` | Defaults to `4096` |
+| `SSH_KEY_ALGO` | Defaults to `rsa`  |
 
+## TODO
 
-# TODO
-
-#SSH Key Path festlegen
-
-Insecure Registry eintragen
-
-
+* define SSH Key Path
+* Insecure Registry setup!
