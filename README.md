@@ -10,23 +10,46 @@ Die beschriebene Idee sind die Dokumentation des Testaufbau's und die Beispiele 
 
 ![](images/ship-container-with-a-bee.png)
 
-## Aufbau des Labs - Create a running docker beehive
+## Aufbau des Labs - Erzeuge ein Queenshive
 
-Damit verschiedene Crew beehive im Lab separate arbeiten können habe wir
-einen [Clear Fog PRO](https://www.solid-run.com/marvell-armada-family/clearfog/)- Router von SolidRun eingesetzt. Dieser Router bildet das Gateway zum Internet und hostet die Lab Docker-Registry. Der Clear Fog ist unsere Queens Hive :honeybee:
+Damit verschiedene Crew's im Lab separat arbeiten können, haben wir
+einen [Clear Fog PRO](https://www.solid-run.com/marvell-armada-family/clearfog/)- Router von SolidRun eingesetzt. Dieser Router ist unser Bienenstock zum Internet und hostet die Lab Docker-Registry. Der Clear Fog ist für heute unsere Queens Hive :honeybee:
 
 * https://blog.hypriot.com/post/introducing-the-clearfog-pro-router-board/
 * https://blog.hypriot.com/post/clearfog-pro-part-2-lets-run-docker/
 
-![](images/rpi-lab-beehive.png)
+### Aufbau mit einem Switch
+
+![](images/rpi-lab-queenshive.png)
+
+### Aufbau als Router
+
+![](images/rpi-lab-queenshive-router.png)
+
+**Experiment**:
+
+Weitere Informationen zum Setup der [Queens hive](ClearFog-queens-bee-setup.md) stehen zur Verfügung.
+
+![](images/beehive-test-setup.png)
+
+### Alternative
 
 Der erste Testaufbau von Niclas ist uns mit einem [ODROID-XU3](http://odroid.com/dokuwiki/doku.php?id=en:odroid-xu3) gelungen:
 
 ![](images/docker-swarming-at-pi.jpg)
 
+### Mini Router Setup
+
+Jedem Team steht ein Mini Router und eignes WLAN zur Verfügung.
+
+SSID: bee42-crew-XX
+Password: beehive42
+
+* [Mini Router Setup](TP-Link-setup.md)
+
 ## Einkaufswagen füllen, bestellen, bezahlen, installieren und Spaß haben!
 
-Alle Komponenten die Ihr braucht um einen Docker ARM Cluster aufzubauen können in der Regel preiswert und zuverlässig bestellt werden. Wir haben uns an der Liste von [Roland Huss](https://ro14nd.de/kubernetes-on-raspberry-pi3) orientiert:
+Alle Komponenten die Ihr braucht um einen Docker PI-Cluster aufzubauen können in der Regel preiswert und zuverlässig bestellt werden. Wir haben uns an der Liste von [Roland Huss](https://ro14nd.de/kubernetes-on-raspberry-pi3) orientiert:
 
 Danke Roland :-)
 
@@ -44,13 +67,15 @@ Stand 2016-10. ca. 232 Euro
 | 1      | [Gehäuse](http://www.amazon.de/dp/B00NB1WPEE)                | 10 EUR     |
 | 2      | [Zwischenplatten](http://www.amazon.de/dp/B00NB1WQZW)        | 2 * 7 EUR  |
 
-## SD Karten für den Cluster vorbereiten
+* Option: Kühler für die PI kaufen und installieren
+
+## SD-Karten für den beehive PI-Cluster vorbereiten
 
 Es gibt mehrere Möglichkeiten ein RPi-Image auf eine SD-Karte zu bekommen. Wir nutzen für diesen Anwendungsfall das [Flash Tool der Hypriot Priraten](https://github.com/hypriot/flash). Als Basis der Installation verwenden wir das aktuelle [Hypriot OS](https://github.com/hypriot/image-builder-rpi/).
 
 ### Installation des Werkzeuges Flash unter Linux / OS X
 
-Mit folgendem Befehlen installiert Ihr das Flash Tool:
+Mit folgendem Befehlen installiert Ihr das Hypriot Flash Tool:
 
 ```
 $ curl -O https://raw.githubusercontent.com/hypriot/flash/master/$(uname -s)/flash && \
@@ -96,7 +121,7 @@ Damit könnt Ihr nun in Euerer Umgebung den RPi prägen und dann einfach ausprob
 
 ### Flashen des OS-Images
 
-Nach Erstellung der Datei `device_init.yaml` könnt Ihr diese direkt mit auf die SD-Karte flashen. Ansonsten könnt ihr auch nach des Flashes die `device_init.yaml` direkt auf dem PI bearbeiten.
+Nach Erstellung der Datei `device_init.yaml` könnt Ihr diese direkt mit auf die SD-Karte flashen. Ansonsten könnt ihr auch nach dem flashen die `device_init.yaml` direkt auf dem PI bearbeiten.
 
 ```bash
 $ flash -c device_init.yaml hypriotos-rpi-v1.1.0.img
@@ -115,7 +140,7 @@ __Frage__: Wie bekommt eigentlich heraus welche IP dem PI vom DHCP Server zugeor
 ```
 # install nmap
 $ brew install nmap
-$ nmap -sn 192.168.1.0/24
+$ nmap -sn 192.168.178.0/24
 ```
 
 Das Passwort für den Nutzer __pirate__ lautet: **hypriot**. Nun ist Euer PI für die Orchestrierung mit einem Docker Swarm Clusters bereit.
@@ -274,27 +299,7 @@ https://packagecloud.io/Hypriot/Schatzkiste/packages/debian/jessie/docker-machin
 Dann noch den Fix auf den Pi’s ausführen:
 https://github.com/DieterReuter/arm-docker-fixes/tree/master/001-fix-docker-machine-1.8.0-create-for-arm
 
-## Router konfigurieren
-
-**TODO**
-* s.h Rolands Pi Konfig
-* Bilder und Screenshots
-  * images/tp-link
-  * only open firewall ports 22 and 2376
-
-* reset router
-* login at 192.168.0.1
-* quick setup
-  * access mode
-  * name change and wlan password
-* change hostname
-* change router ip address to 192.168.x.254
-* change WLAN ip Range 192.168.x.1-199
-* set wlan timeout to 600
-* firewall disable
-* change admin password
-
-# Docker Swarming
+## Docker Swarming
 
 ![](images/docker-swarm-logo.png)
 
