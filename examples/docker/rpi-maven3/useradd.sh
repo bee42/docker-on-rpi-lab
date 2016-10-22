@@ -11,6 +11,6 @@ if [ ! "${USERNAME}" -eq "root"] ; then
   useradd -u ${MUID} -r -g ${USERNAME} -d /home/${USERNAME} \
     -s /bin/bash -c "bee42 ${USERNAME} developer" ${USERNAME}
   groupadd -r docker -g 112
-  usermod -a -G docker pirate
+  usermod -a -G docker ${USERNAME}
   chown -R ${USERNAME}:${GROUPNAME} /home/${USERNAME}
 fi

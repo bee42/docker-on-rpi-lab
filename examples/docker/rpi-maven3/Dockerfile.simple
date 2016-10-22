@@ -9,8 +9,8 @@ RUN export URL=https://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/bina
   && mv /usr/share/apache-maven-$MAVEN_VERSION $MAVEN_HOME \
   && ln -s $MAVEN_HOME/bin/mvn /usr/bin/mvn
 
-ADD LICENSE /etc/LICENSE.java
-RUN COPYDATE=`date  +'%Y'` && echo "bee42 java" >/etc/provisioned.java && date >>/etc/provisioned.java && echo >>/etc/provisioned.java && echo " Copyright ${COPYDATE} by <peter.rossbach@bee42.com> bee42 solutions gmbh" >>/etc/provisioned.java
+ADD LICENSE /etc/LICENSE.maven
+RUN COPYDATE=`date  +'%Y'` && echo "bee42 maven" >/etc/provisioned.maven && date >>/etc/provisioned.maven && echo >>/etc/provisioned.maven && echo " Copyright ${COPYDATE} by <peter.rossbach@bee42.com> bee42 solutions gmbh" >>/etc/provisioned.maven
 
 ENTRYPOINT ["mvn"]
 CMD ["--version"]
