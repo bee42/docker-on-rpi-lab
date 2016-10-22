@@ -18,5 +18,18 @@ $ docker tag bee42/rpi-java:8-jre queenshive:5000/bee42/rpi-java:8-jre
 $ docker push queenshive:5000/bee42/rpi-java:8-jre
 ```
 
+## usage
+
+### compile and run a java program inside a container
+
+```
+$ docker run --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp bee42/rpi-java:8-jdk javac Main.java
+$ docker run -ti --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp bee42/rpi-java:8-jdk java -cp . Main
+```
+
+## Links
+
+* https://hub.docker.com/_/openjdk/
+
 regards
 peter
