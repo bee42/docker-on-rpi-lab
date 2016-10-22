@@ -38,7 +38,7 @@ docker-machine --debug --storage-path=$STORAGE_PATH create \
   --generic-ssh-port=$SSH_PORT \
   --generic-ssh-user=$PI_USERNAME \
   --engine-install-url=https://get.docker.com/ \
-  --engine-insecure-registry beehive:5000 \
+  --engine-insecure-registry queenshive:5000 \
   --engine-storage-driver=overlay \
   $CREW_MACHINE_NAME
 
