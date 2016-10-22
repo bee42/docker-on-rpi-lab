@@ -1,0 +1,28 @@
+FROM bee42/rpi-java:8-jdk
+MAINTAINER Peter Rossbach <peter.rossbach@bee42.com> @PRossbach
+
+ARG MAVEN_VERSION
+ARG USERNAME
+ARG GROUPNAME
+ARG MUID
+ARG MGID
+
+ENV MAVEN_VERSION=${MAVEN_VERSION:-3.3.9} \
+    MAVEN_HOME=/usr/share/maven \
+    USERNAME=${USERNAME:-root}
+
+RUN export URL=https://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries && \
+ curl -sSL $URL/apache-maven-$MAVEN_VERSION-bin.tar.gz \
+ | tar xzf - -C /usr/share \
+  && mv /usr/share/apache-maven-$MAVEN_VERSION $MAVEN_HOME \
+  && ln -s $MAVEN_HOME/bin/mvn /usr/bin/mvn
+
+ADD useradd.sh /usr/local/bin
+RUN /usr/local/bin/useradd.sh
+
+ADD LICENSE /etc/LICENSE.java
+RUN COPYDATE=`date  +'%Y'` && echo "bee42 java" >/etc/provisioned.java && date >>/etc/provisioned.java && echo >>/etc/provisioned.java && echo " Copyright ${COPYDATE} by <peter.rossbach@bee42.com> bee42 solutions gmbh" >>/etc/provisioned.java
+
+ENTRYPOINT ["mvn"]
+CMD ["--version"]
+ONBUILD RUN /usr/local/bin/useradd.sh
