@@ -1,0 +1,11 @@
+FROM armhfbuild/golang:1.6-alpine
+
+ENV CADVISOR_VERSION=0.24.1
+
+RUN export OUTPUT_PATH=/output \
+    && apk add --no-cache git make bash gcc linux-headers python musl-dev  \
+    && go get -d github.com/google/cadvisor  \
+    && cd $GOPATH/src/github.com/google/cadvisor \
+    && git checkout v${CADVISOR_VERSION}  \
+    && make build  \
+    && cp cadvisor ${OUTPUT_PATH} 
