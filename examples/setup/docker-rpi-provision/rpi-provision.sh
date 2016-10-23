@@ -5,7 +5,7 @@ set -x
 
 
 
-MACHINE_NAME="bee42-crew-$CREW_NUMBER-$MACHINE_ID"
+MACHINE_NAME="bee42-crew-$MACHINE_ID-$CREW_NUMBER"
 
 IP_CREW_NUMBER=$(echo $CREW_NUMBER | sed 's/^0*//')
 IP_MACHINE_ID=$(echo $MACHINE_ID | sed 's/^0*//')
