@@ -53,4 +53,4 @@ docker-machine --debug --storage-path=$STORAGE_PATH create \
   --engine-insecure-registry $ENGINE_INSECURE_REGISTRY \
   $MACHINE_NAME
 
-echo "Now lets connect to the machine"
+docker-machine --storage-path=$STORAGE_PATH ls
