@@ -30,6 +30,12 @@ $ docker-machine --storage-path=$(pwd)/config/.docker-machine  ssh bee42-crew-xx
 ```bash
 $ docker-machine --storage-path=$(pwd)/config/.docker-machine  env bee42-crew-xx-xxx
 ```
+
+## Special case regenerate certs
+
+```bash
+docker-machine --storage-path=$(pwd)/config/.docker-machine  regenerate-certs bee42-crew-xx-xxx
+```
 ## WIP AREA
 
 ### Configuration Parameters
