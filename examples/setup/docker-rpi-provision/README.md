@@ -17,7 +17,7 @@ $ cd docker-on-rpi-lab/examples/setup/docker-rpi-provision
 
 5. `sudo ln -s  $(pwd)/config /machine`
 
-6. `docker-machine --storage-path=$(pwd)/config/.docker-machine  ls`
+6. `docker-machine --storage-path=$(pwd)/config/.docker-machine  ls` or `docker-machine --storage-path=/machine/.docker-machine ls`
 
 7. Connect via SSH
 
