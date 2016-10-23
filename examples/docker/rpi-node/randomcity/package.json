@@ -5,7 +5,7 @@
   "main": "city.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node city.js"
+    "start": "node rcity.js"
   },
   "author": "Luc Juggery",
   "license": "ISC",
