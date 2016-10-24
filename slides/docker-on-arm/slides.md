@@ -76,8 +76,8 @@ deliver prepackage and ready to run software
 -
 ### Run anywhere means
 
-  * Docker works locally, at the cloud and your IOT Devices
-  * with the **same** binary(?)
+  * Docker works locally, at the cloud and your IOT devices
+  * with the **same** binary
     * with the **same** functionality
     * with the **same** version
     * with the **same** filesystem layout
@@ -163,7 +163,7 @@ $ docker push queenshive:5000/bee42/rpi-apache:0.1
 $ docker run -d -p 80:80 queenshive:5000/bee42/rpi-apache:0.1
 ```
 -
-### Review Minimal httpd Images
+### Review the minimal httpd Images
 
 * https://hub.docker.com/_/httpd/
   * Based on alpine linux distribution
@@ -173,7 +173,7 @@ $ docker run -d -p 80:80 queenshive:5000/bee42/rpi-apache:0.1
   * All mods
   * user www-data
   * valid security check
-* Lable schema
+* use the lable schema
   * http://label-schema.org/rc1/
 
 -
@@ -213,7 +213,7 @@ $ docker run -d -p 80:80 queenshive:5000/bee42/rpi-apache:0.1
 ![](images/docker-orchestration-owerview.png)
 
 -
-### Docker swarm: Orchestration
+### Docker swarming: Orchestration
 
 * Desired State Reconciliation
 * Service Types
@@ -225,12 +225,12 @@ $ docker run -d -p 80:80 queenshive:5000/bee42/rpi-apache:0.1
 * Restart Policies
 
 -
-### docker swarm: Scheduling
+### Docker swarming: Scheduling method
 
 ![](images/docker-orchestration-scheduling.png)
 
 -
-### docker swarm: Scheduling details
+### Docker swarming: Scheduling details
 * Resource Awareness
 * Constraints
   * __IDs__
@@ -243,7 +243,7 @@ $ docker run -d -p 80:80 queenshive:5000/bee42/rpi-apache:0.1
   * respect the resource requirements
 
 -
-### docker swarm: Cluster Management
+### Docker swarming: Cluster Management
 
 * State Store
   * replicated (Raft based)
@@ -258,7 +258,7 @@ $ docker run -d -p 80:80 queenshive:5000/bee42/rpi-apache:0.1
   * failure detection
 
 -
-### docker swarm: Security
+### Docker swarming: Security
 
 * Mutual TLS
   * CA
@@ -270,6 +270,28 @@ $ docker run -d -p 80:80 queenshive:5000/bee42/rpi-apache:0.1
 * Certificate Rotation
   * rotated and reloaded transparently on every node
   * default is 3 months, the minimum is 30 minutes
+
+-
+### Flash your RPI-device
+
+#### Install flash
+
+```
+$ URL=https://raw.githubusercontent.com/hypriot/flash/master
+$ curl -O $URL/$(uname -s)/flash
+$ chmod +x flash
+$ sudo mv flash /usr/local/bin/flash
+```
+
+#### flash your SD Cards
+
+```
+$ flash \
+  --hostname bee42-crew-06-003 \
+  --ssid bee42-crew-06 \
+  --password beehive42 \
+  https://downloads.hypriot.com/hypriotos-rpi-v1.1.0.img.zip
+```
 
 -
 ### Example I:  whoami
@@ -419,7 +441,7 @@ $ docker service create --name cadvisor --mode global \
 
 
 ---
-## Docker-in-Docker with swarm mode at docker for mac
+## Docker-in-Docker with swarming mode at Docker For Mac
 
 ```
 $ docker swarm init
@@ -454,7 +476,7 @@ $ docker run -it -d -p 8000:8000 \
 * Letsencrypt support
 
 -
-### label your container
+### Label your service container
 
 ```
 traefik:
@@ -473,6 +495,10 @@ whoami:
     - "traefik.backend=whoami"
     - "traefik.frontend.rule=Host:whoami.docker.localhost"
 ```
+
+***
+* __Example shows__: Access to one Docker Engine not a cluster
+* __ToDo__: Present swarming mode - network and engine access?
 
 -
 ### Traefik Dashboard
