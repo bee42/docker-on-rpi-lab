@@ -5,4 +5,5 @@
   "UUID": "<%= UUID.randomUUID()%>
   "Date": "<%= dateFormat.format(new java.util.Date()) %>",
   "Timestamp": <%= System.currentTimeMillis() / 1000 %>
+  "Version": <%= System.getenv("UUID_VERSION") %>
 }

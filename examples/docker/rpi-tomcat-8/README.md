@@ -304,6 +304,38 @@ docker run -d -p 8080:8080 --volumes-from status bee42/tomcat:rpi-8.0.38
 
 *WARNING*: Starting simple apps at tomcat needs time!
 
+## UUID examples
+
+```
+$ docker build -t bee42/rpi-uuid:0.0.1 -f Dockerfile.uuid .
+$ docker run -d -p 9080:8080 bee42/rpi-uuid:0.0.1
+$ curl 127.0.0.1:9080/uuid
+$ docker tag bee42/rpi-uuid:0.0.1 queenhive:5000/bee42/rpi-uuid:0.0.1
+$ docker push
+```
+
+### UUID swarming
+
+```
+# loging to swarm manager
+$ docker service create --name uuid queenshive:5000/bee42/rpi-uuid:0.0.1
+$ docker service update --replicas 2 uuid
+
+```
+
+### UUID Rolling update
+
+```
+$ docker build --build-arg UUID_VERSION=0.0.2 -t bee42/rpi-uuid:0.0.2 -f Dockerfile.uuid .
+$ docker tag bee42/rpi-uuid:0.0.2 queenshive:5000/bee42/rpi-uuid:0.0.2
+$ docker push
+$ docker service create \
+ --replicas 3 \
+ --name uuid \
+ --update-delay 10s \
+ queenshive:5000:bee42/rpi-uuid:0.0.2
+```
+
 ### ToDo Missing jq
 
 Build static binary with C-Container and add to tomcat.
