@@ -329,11 +329,10 @@ $ docker service update --replicas 2 uuid
 $ docker build --build-arg UUID_VERSION=0.0.2 -t bee42/rpi-uuid:0.0.2 -f Dockerfile.uuid .
 $ docker tag bee42/rpi-uuid:0.0.2 queenshive:5000/bee42/rpi-uuid:0.0.2
 $ docker push
-$ docker service create \
- --replicas 3 \
- --name uuid \
+$ docker service update \
+ --replicas 4 \
  --update-delay 10s \
- queenshive:5000:bee42/rpi-uuid:0.0.2
+ --image queenshive:5000:bee42/rpi-uuid:0.0.2 uuid
 ```
 
 ### ToDo Missing jq
