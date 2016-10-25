@@ -421,6 +421,70 @@ $ docker service create --name cadvisor --mode global \
 * **WARNING**: CAdvisor don't work at ARM at this moment!
 
 -
+### Rolling service update
+
+UUID swarming
+
+```
+# login to swarm manager
+$ docker build --build-arg UUID_VERSION=0.0.2 -t bee42/rpi-uuid:0.0.1 -f Dockerfile.uuid .
+$ docker tag bee42/rpi-uuid:0.0.1 queenshive:5000/bee42/rpi-uuid:0.0.1
+$ docker push queenshive:5000/bee42/rpi-uuid:0.0.1
+$ docker service create --name uuid queenshive:5000/bee42/rpi-uuid:0.0.1
+$ docker service update --publish-add 9080:8080 uuid
+$ docker service update --replicas 2 uuid
+```
+
+UUID next version
+
+```
+$ docker build --build-arg UUID_VERSION=0.0.2 -t bee42/rpi-uuid:0.0.2 -f Dockerfile.uuid .
+$ docker tag bee42/rpi-uuid:0.0.2 queenshive:5000/bee42/rpi-uuid:0.0.2
+$ docker push queenshive:5000/bee42/rpi-uuid:0.0.2
+$ docker service update \
+ --replicas 4 \
+ --update-delay 10s \
+ --image queenshive:5000/bee42/rpi-uuid:0.0.2 uuid
+```
+
+-
+### Access uuid service
+
+```
+$ curl 192.168.5.1:9080/uuid/index.jsp
+{
+  "Container": "9e1daabe3fb2",
+  "UUID": "37a971b7-1467-47de-90e2-20cd2d9de4df",
+  "Date": "2016/10/25 14:30:25",
+  "Timestamp": "1477405825",
+  "Version": "0.0.2"
+}
+```
+-
+### visualizer of docker swarming
+
+```
+$ docker run -it -d -p 5000:5000 \
+  -e HOST=192.168.5.1 \
+  -e PORT=5000 \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  queenshive:5000/bee42/swarm-visualizer
+```
+
+***
+*  https://github.com/ManoMarks/docker-swarm-visualizer
+
+-
+### docker visualizer screenshot 1
+
+![](images/docker-swarm-visualizer-1.png)
+
+-
+### docker visualizer screenshot 2
+
+![](images/docker-swarm-visualizer-2.png)
+
+-
 ### More to Test
 
 * Auto update to next software release
@@ -600,13 +664,13 @@ Slides available at container and PDF :-)
 
   - Docker Meetup 25.10 2016 - Bochum
     - Docker on ARM - Hackergarden
-  - Docker on ARM Hacking Evening - Bochum bee42/Setlog 3.11.2016
   - W-JAX 5-9.11 2016 - Munich
   - Container Camp 15/16.11 - Darmstadt
   - Global Docker Mentoring Week
     - Docker Meetup Groups Düsseldorf & Bochum - 17.11 Düsseldorf
     - Sponsor inVision && bee42
     - https://blog.docker.com/2016/10/docker-global-mentor-week-2016/
+    - http://www.meetup.com/de-DE/docker-dus/events/234915297/
   - DevOpsCon 5-8.12 2016 - Munich
     - Docker Basics
     - Docker Advanced OpenSpace
