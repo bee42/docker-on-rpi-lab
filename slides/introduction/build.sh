@@ -1,5 +1,5 @@
 #!/bin/bash
-DECK=docker-on-arm
+DECK=docker-on-arm-intro
 docker build -t="rossbachp/$DECK" .
 DATE=`date +'%Y%m%d%H%M'`
 ID=$(docker inspect -f "{{.Id}}" rossbachp/$DECK)
