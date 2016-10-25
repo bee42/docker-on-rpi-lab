@@ -1,3 +1,6 @@
-FROM hypriot/rpi-alpine-scratch 
-ADD webapps/status /opt/tomcat/webapps/status
-VOLUME /opt/tomcat/webapps/status
+FROM bee42/tomcat:rpi-8
+
+ARG UUID_VERSION
+ENV UUID_VERSION ${UUID_VERSION:-0.0.1}
+
+ADD webapps/uuid /opt/tomcat/webapps/uuid
