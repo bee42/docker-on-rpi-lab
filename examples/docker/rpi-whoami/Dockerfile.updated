@@ -1,0 +1,17 @@
+FROM armhfbuild/golang:1.6-alpine
+
+ENV REPO=solidnerd/whoamI
+ENV BUILD_DEPS="git make bash gcc linux-headers python musl-dev"
+ENV OUTPUT_PATH=/output
+
+RUN mkdir -p $OUTPUT_PATH \
+    && apk add --no-cache $BUILD_DEPS  \
+    && go get -d github.com/$REPO \
+    && cd $GOPATH/src/github.com/$REPO \
+    && CGO_ENABLED=0 go build -a --installsuffix cgo --ldflags="-s" -o whoamI \
+    && cp whoamI $OUTPUT_PATH/ \
+    && apk del $BUILD_DEPS \
+    && rm -rf $GOPATH/src/github.com/$REPO
+
+
+ENTRYPOINT ["/output/whoamI"]
