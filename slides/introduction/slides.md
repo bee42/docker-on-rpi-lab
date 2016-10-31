@@ -57,6 +57,21 @@ be(e) not perfect...
 | 21:00 Uhr | Präsentation und Diskussion der Ergebnisse     |
 | 22:00 Uhr | Schluss                                        |
 
+***
+* https://github.com/bee42/docker-on-rpi-lab
+
+---
+## Access your swarming crew cluster
+
+```
+access WLAN: bee42-crew-xx (beehive42)
+IP: 192.168.xx.1
+login: ssh pirate@192.168.xx.1
+password: hypriot
+```
+
+***
+* https://github.com/bee42/docker-on-rpi-lab
 
 ---
 ## Docker Global Mentor Week

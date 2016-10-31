@@ -10,7 +10,7 @@ Docker Captain && Hypriot Pirate
 bee42 solutions gmbh
 ```
 
-![](images/docker_pirate_650px_full-width.jpg)
+![](images/docker_raspberry_pirate.jpg)
 
 ***
 be(e) not perfect...
@@ -530,15 +530,15 @@ $ docker run -it -d -p 8000:8000 \
 * https://github.com/ManoMarks/docker-swarm-visualizer
 
 ---
-## Add an ingres loadbalancer like traefik
+## Add an ingress loadbalancer like traefik
 
 ![](images/traefik.png)
 
 ***
 * https://traefik.io/
-* setup external Ingres loadbalancer
-* Letsencrypt support
-
+* setup external Ingress loadbalancer
+* letsencrypt support
+* docker swarming support
 -
 ### Label your service container
 
@@ -581,26 +581,50 @@ whoami:
 ---
 ## Summary
 -
-### Containerize your software to create faster value
+### Containerize your software
+### to create
+### faster value
 -
-### Deploy and run software with Docker is now much easier
+### Deploy and run software
+### with
+### Docker
+### is now much easier
 -
-### Learn more to use a dynamic infrastructure
+### Learn more
+### to use a
+### dynamic infrastructure
 -
-### Please, use cloud technologies and services at your daily business
+### Please,
+### use cloud technologies and services
+### at
+### your
+### daily business
 -
-### DevOps changes your organizational structure, to it first.
+### DevOps changes your organizational structure,
+### to it first.
 -
-### You need more hardcore IT-knowledge at your teams
+### You need
+### more
+### hardcore IT-knowledge
+### at your teams
 -
-### Start an aggressive learning culture at your team
+### Start an
+### aggressive learning culture
+### at your team
 -
-### Docker Ecosystem and the IT market growing and moving fast forward
+### Docker Ecosystem
+### and
+### the IT market
+### growing
+### and
+### moving
+### fast forward
 -
 ### Don't forget
 
+* Use a infrastructure first strategy
 * Reduce you coupling
-* Design API first
+* Create brilliant API's
 * Design for failure
 * Setup machines and network automatically
 * Safe your persistence data
@@ -631,12 +655,12 @@ Slides available at container and PDF :-)
 ---
 ### Peter's offer to you!
 
-| Service | benefit |
-| ------ | ---- |
-| **Lab**:  | use my IT-brick knowledge to be faster informed |
-| **Consulting**: | use my expertise to start smarter |
-| **Training**: | let me help you to get a docker-brick expert |
-| **Products**: | use my knowledge of the docker ecosystem |
+| Service         | benefit                                         |
+|:----------------|:------------------------------------------------|
+| **Lab**:        | use my IT-brick knowledge to be faster informed |
+| **Consulting**: | use my expertise to start smarter               |
+| **Training**:   | let me help you to get a docker-brick expert    |
+| **Products**:   | use my knowledge of the docker ecosystem        |
 
 ***
 [<peter.rossbach@bee42.com>](mailto:peter.rossbach@bee42.com)
@@ -647,17 +671,52 @@ Slides available at container and PDF :-)
 ## Docker on ARM - Embedded System Lab
 
 * Dieter Reuter (@DockerCaptain, Hypriot Pirat)
-* Peter Roßbach
-* Niclas Mietz
+* Peter Roßbach (Founder bee42, Docker Enabler, Apache Member, Systemarchitect)
+* Niclas Mietz (Docker Nerd)
 
 ***
 * Docker Meetup 25.10 2016 - 18 Uhr Bochum - Jahrhunderthaus
 * http://www.meetup.com/de-DE/Docker-Bochum/events/234324255/
+* https://github.com/bee42/docker-on-rpi-lab
 
 -
 ### Pi Swarming
 
 ![](images/docker-swarming-at-pi-1.jpg)
+
+---
+## Docker Meetup Lab impressions
+
+![](images/photo/bee42_honey.jpg)
+
+***
+* bee42 crew meets docker community!
+
+-
+### Hack the Lab: docker swarming development
+
+![](images/photo/bee42_lab_development.jpg)
+
+***
+* Many Thanks to Niclas, Albert, Dmitry and Georg!
+
+-
+### Hack the Lab: Delivery of the router
+
+![](images/photo/bee42_deliver_router.jpg)
+
+-
+### Hack the Lab: Crew docker swarming setup
+
+![](images/photo/bee42_lab_crew_docker_swarming.jpg)
+
+-
+### Hack the Lab: bring your own device..
+
+![](images/photo/andreas_docker_odriod_cluster.jpg)
+
+***
+* Many Thanks to Andreas:  Your ODRIOD setup is brilliant!
 
 ---
 ## More time for discussions...
