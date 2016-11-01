@@ -272,6 +272,14 @@ $ docker run -d -p 80:80 queenshive:5000/bee42/rpi-apache:0.1
   * default is 3 months, the minimum is 30 minutes
 
 -
+### Lab Setup: beehive
+
+![](images/rpi-lab-queenshive.png)
+
+***
+* [ClearFog SolidRun PRO router](https://www.solid-run.com/product/clearfog-pro/#configuration)
+
+-
 ### Flash your RPI-device
 
 #### Install flash
