@@ -294,13 +294,13 @@ $ sudo mv flash /usr/local/bin/flash
 #### flash your SD Cards
 
 ```
+$ URL=https://github.com/hypriot/image-builder-rpi/releases/download/
 $ flash \
-  --hostname bee42-crew-06-003 \
+  --hostname bee42-rew-06-003 \
   --ssid bee42-crew-06 \
   --password beehive42 \
-  https://downloads.hypriot.com/hypriotos-rpi-v1.1.0.img.zip
+  ${URL}/v1.1.0/hypriotos-rpi-v1.1.0.img.zip
 ```
-
 -
 ### Example I:  whoami
 
