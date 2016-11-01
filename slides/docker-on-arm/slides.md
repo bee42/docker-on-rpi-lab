@@ -693,6 +693,19 @@ Slides available at container and PDF :-)
 * bee42 crew meets docker community!
 
 -
+## Docker Meetup Lab Opening
+
+![](images/photo/meetup_opening.jpg)
+
+***
+* YEAH with Dieter, Guido, Peter and Niclas
+
+-
+## Docker Meetup Lab: Sponsor Setlog
+
+![](images/photo/setlog.jpg)
+
+-
 ### Hack the Lab: docker swarming development
 
 ![](images/photo/bee42_lab_development.jpg)
@@ -711,9 +724,14 @@ Slides available at container and PDF :-)
 ![](images/photo/bee42_lab_crew_docker_swarming.jpg)
 
 -
-### Hack the Lab: bring your own device..
+### Hack the Lab: bring your own device...
 
 ![](images/photo/andreas_docker_odriod_cluster.jpg)
+
+-
+### Hack the Lab: bring your own device...
+
+![](images/photo/andreas_docker_odriod_cluster_hack.jpg)
 
 ***
 * Many Thanks to Andreas:  Your ODRIOD setup is brilliant!
