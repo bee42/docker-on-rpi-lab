@@ -22,6 +22,8 @@ einen [Clear Fog PRO](https://www.solid-run.com/marvell-armada-family/clearfog/)
 
 ![](images/rpi-lab-queenshive.png)
 
+![](images/bee42_lab_development.jpg)
+
 ### Aufbau als Router
 
 ![](images/rpi-lab-queenshive-router.png)
@@ -42,8 +44,21 @@ Der erste Testaufbau von Niclas ist uns mit einem [ODROID-XU3](http://odroid.com
 
 Jedem Team steht ein Mini Router und eignes WLAN zur Verfügung.
 
-SSID: bee42-crew-XX
-Password: beehive42
+
+```
+crew number: 01|02|03|04|05
+access WLAN: SSID: bee42-crew-<crew number>, pw: beehive42
+IP: 192.168.<crew number>.1
+login: ssh pirate@192.168.<crew number>.1
+password: hypriot
+```
+
+```
+Swarm manager: bee42-crew-<crew number>-001
+Swarm worker 1: bee42-crew-<crew number>-001
+Swarm worker 2: bee42-crew-<crew number>-002
+Swarm worker 3: bee42-crew-<crew number>-003
+```
 
 * [Mini Router Setup](TP-Link-setup.md)
 
@@ -303,9 +318,11 @@ https://github.com/DieterReuter/arm-docker-fixes/tree/master/001-fix-docker-mach
 
 ![](images/docker-swarm-logo.png)
 
-Was ist das?
+* `cd slides/docker-on-arm`
+* `cd examples/docker/rpi-tomcat-8`
+* https://speakerdeck.com/rossbachp/docker-on-arm-docker-meetup-bochum-2016-10
 
-**TODO**
+Mehr über PI Cluster und Docker swarming
 
 * https://blog.docker.com/2016/07/swarm-mode-on-a-raspberry-pi-cluster/
 * https://blog.hypriot.com/post/deploy-swarm-on-chip-with-docker-machine/
@@ -313,7 +330,7 @@ Was ist das?
 * http://blog.alexellis.io/docker-swarm-mode-part1/
 * http://blog.alexellis.io/microservice-swarm-mode/
 
-## Cluster initiieren
+### Cluster erzeugen
 
 ```bash
 $ docker swarm init
@@ -321,44 +338,36 @@ $ docker swarm init
 
 Nun erhalten wir zwei Tokens einen Manger und einen Worker Token. Manager haben die Kontrolle über den Cluster und Worker führen nur die eingehenden Aufgaben aus.
 
-## Cluster Tokens sichtbar machen und rotieren lassen
+### Cluster Tokens sichtbar machen und rotieren lassen
 
 Um die Tokens nachschauen zu können muss man in dem Cluster sein. Docker stellt eine Befehl zu Verfügung um Tokens sichtbar zu machen oder auch rotieren zu lasen.
 
 ```bash
 $ docker swarm join-token [--rotate] (worker|manager)
 ```
-## Einen Worker Node zum Cluster hinzufügen
+
+### Einen Worker Node zum Cluster hinzufügen
 
 ```
 $ docker swarm join --token "super-secret" ip:2377
 ```
 
-## Beispiel für den Start eines Services
-
-### Install newest go lang version at your pi
+### Beispiel für den Start eines Services
 
 ```
-$ VERSION=1.7.3
-$ OS=linux
-$ ARCH=armv6l
-$ wget -L https://storage.googleapis.com/golang/go$VERSION.$OS-$ARCH.tar.gz
-$ tar -C /usr/local -xzf go$VERSION.$OS-$ARCH.tar.gz
-$ export PATH=$PATH:/usr/local/go/bin
-cat >>$HOME/.profile <<EOF
-export GOROOT=\$HOME/go
-export PATH=\$PATH:\$GOROOT/bin
-EOF
+$ docker service create --name whoami queenshive:5000/bee42/whoami
+$ docker service update --replicas 2  whoami
+$ docker service inspect whoami
 ```
 
 ### Examples whoami
 
-**TODO**: Portierung auf PI?
 
+* `cd exmaples/docker/rpi-whoami`
 * https://github.com/emilevauge/whoamI
 
 ```
-$ docker run -d -P --name iamfoo emilevauge/whoami
+$ docker run -d -P --name iamfoo queenshive:5000/bee42/rpi-whoami
 $ docker inspect --format '{{ .NetworkSettings.Ports }}'  iamfoo
 map[80/tcp:[{0.0.0.0 32769}]]
 $ curl "http://0.0.0.0:32769"
@@ -376,7 +385,7 @@ Accept: */*
 ### Erzeugen einen Service und skalieren
 
 ```
-$ docker service create --name whoami emilevauge/whoami
+$ docker service create --name whoami queenshive:5000/bee42/rpi-whoami
 $ docker service update --replicas 2  whoami
 $ docker service inspect whoami
 [
@@ -396,24 +405,6 @@ $ docker service inspect whoami |jq "{ name: .[].Spec.Name , replicas: .[].Spec.
   "name": "whoami",
   "replicas": 2
 }
-```
-
-### Rolling Update
-
-**TODO**
-
-### cadvisor auf allen Cluster Devices
-
-**TODO**: erzeuge ein cadvisor ARM image
-
-```
-$ docker service create --name cadvisor --mode global \
- --mount type=bind,source=/,target=/rootfs/,writable=false \
- --mount type=bind,source=/var/run/,target=/var/run/ \
- --mount type=bind,source=/sys/,target=/sys/,writable=false \
- --mount type=bind,source=/var/lib/docker/,target=/var/lib/docker/,writable=false \
-  --publish 8080:8080 \
-  google/cadvisor:latest
 ```
 
 ### Finde neue Möglichkeiten für Deinen RPI Docker Cluster
@@ -459,18 +450,6 @@ $ ssh pirate@192.168.3.1
   * Availability service
 * Setup Traefik
   * auto swarming mode
-
-#### Steuerung von Devices
-
-#### Portierung von DockerCraft
-
-* https://github.com/docker/dockercraft
-* http://minecraft-de.gamepedia.com/Steuerung
-
-**TODO**: Add swarming mode
-* Access Docker daemon remote with certs
-* Read docker service info
-  * see Traefik server plugin for swarming
 
 # Aufräumen des Host-Systems
 
