@@ -12,5 +12,7 @@ $ docker run -d -p 8080:8080 -p 80:80 \
 ```
 $ docker-compose up -d
 $ curl --header 'Host: whoami.docker.localhost' 'http://localhost:80/'
+$ docker-compose scale whoami=2
+# see with curl that all Backends are routed:)
 ```
 
