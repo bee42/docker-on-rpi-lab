@@ -1,8 +1,18 @@
 # build golang at arm
 
+A programming language to build simple, reliable and efficient Software.
+
 ![](golang-logo.png)
 
+Created by Robert Griesmer, Rob Pike and Ken Thompson and open sourced at november 2009.
+
+![](golang-designer.png)
+
 * https://golang.org/
+* https://en.wikipedia.org/wiki/Go_(programming_language)
+* http://www.slideshare.net/TeamHypriot/simplify-go-software-development-with-docker-58732126
+
+## Create the golang tool container
 
 ```
 $ docker -t bee42/rpi-golang -t bee42/rpi-golang:1.7 .
