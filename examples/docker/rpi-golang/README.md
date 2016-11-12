@@ -125,6 +125,7 @@ __Note__: the default command in `bee42/rpi-golang:onbuild` is actually `go-wrap
 * https://tour.golang.org/welcome/1
 * https://gobyexample.com/
 * https://github.com/ardanlabs/gotraining/tree/master/courses
+* https://blog.codeship.com/building-minimal-docker-containers-for-go-applications/
 
 ## Links
 
