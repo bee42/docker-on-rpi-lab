@@ -6,7 +6,7 @@ ARG GOLANG_VERSION
 ENV GOLANG_VERSION=${GOLANG_VERSION:-1.7.3}
 
 RUN apt-get update \
- && apt-get install -y --no-install-recommends openssl\
+ && apt-get install -y --no-install-recommends wget openssl\
  && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /usr/local/go \
