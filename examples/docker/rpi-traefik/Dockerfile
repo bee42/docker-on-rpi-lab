@@ -13,7 +13,7 @@ RUN mkdir -p /tmp/traefik \
  && cd /tmp/traefik \
  && wget https://github.com/containous/traefik/releases/download/v${TRAEFIK_VERSION}/traefik_linux-arm \
  && mv traefik_linux-arm /usr/local/bin/traefik \
- && chmod +x /usr/local/bin/traefik
+ && chmod +x /usr/local/bin/traefik \ 
  && cd / \
  && rm -rf /tmp/traefik
 
