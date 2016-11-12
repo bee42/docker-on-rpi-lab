@@ -61,6 +61,36 @@ EOF
 $ csshx --config csshx.config -l pirate --remote_command ls bee42-crew-03
 ```
 
+reboot all docker worker nodes after installation
+
+```
+$ ssh pirate@192.168.3.1
+$ docker node ls
+ID                           HOSTNAME           STATUS  AVAILABILITY  MANAGER STATUS
+99fedmb47c2sxpn4p8hylr3mn *  bee42-crew-03-001  Ready   Active        Leader
+du1mztq652008fxizoe3c4ipg    bee42-crew-03-003  Down    Active        
+ecygj5ihi5n3uq76zcpxvfqwm    bee42-crew-03-002  Down    Active        
+$ exit
+$ csshx -l pirate --remote_command 'sudo systemctl restart docker.service'  192.168.3.2 192.168.3.3
+```
+
+change queenshive ip at all rpi nodes
+
+__WARNING__: not working??
+
+```
+$ csshx --config csshx.config \
+ -l pirate \
+ --remote_command \
+ 'sudo sed -i "/queenshive/ s/.*/192\.168\.178\.69\tqueenshive/g" /etc/hosts' \
+ bee42-crew-03
+## works
+$ ssh priate@192.168.3.1
+> sudo sed -i "/queenshive/ s/.*/192\.168\.178\.69\tqueenshive/g" /etc/hosts
+> exit
+```
+
+
 ### TODO
 
 * wrote a script to add your ssh key to all pi's
