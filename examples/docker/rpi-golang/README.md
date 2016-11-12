@@ -110,7 +110,12 @@ $ docker run -it --rm my-hello
 
 __Note__: the default command in `bee42/rpi-golang:onbuild` is actually `go-wrapper` run, which includes `set -x` so the binary name is printed to stderr on application startup. If this behavior is undesirable, then adding `CMD ["app"]` (or `CMD ["myapp"]`` if a Go custom import path is in use will silence it by running the built binary directly.
 
-## links
+## More Examples
+
+* https://tour.golang.org/welcome/1
+* https://gobyexample.com/
+
+## Links
 
 * https://github.com/golang/go/wiki/GoArm
 * https://github.com/hypriot/golang-armbuilds
