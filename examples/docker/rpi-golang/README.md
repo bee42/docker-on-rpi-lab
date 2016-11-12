@@ -1,4 +1,4 @@
-# build golang at arm
+# Build golang apps at your Docker on ARM setup
 
 A programming language to build simple, reliable and efficient Software.
 
@@ -31,18 +31,18 @@ $ docker -f Dockerfile.onbuild \
  -t bee42/rpi-golang:1.7-onbuild .
 ```
 
-## usage
+## Usage
 
 see [golang](https://hub.docker.com/_/golang/)
 
-## Examples
+## Example: google-get
 
 * https://blog.codeship.com/building-minimal-docker-containers-for-go-applications/
 
 
 ```
-$ mkdir -p example
-$ cd example
+$ mkdir -p google-get
+$ cd google-get
 $ cat >main.go <<EOF
 package main
 
@@ -73,7 +73,7 @@ EOF
 Build a docker images from this.
 
 ```
-$ cp  /etc/ssl/certs/ca-certificates.crt .
+$ cp /etc/ssl/certs/ca-certificates.crt .
 $ cat >Dockerfile.scratch <<EOF
 FROM scratch
 ADD ca-certificates.crt /etc/ssl/certs/
@@ -85,11 +85,11 @@ $ docker run --rm \
  -e GOOS=linux -e CGO_ENABLED=0 \
  bee42/rpi-golang \
  go build -a -installsuffix cgo -ldflags="-s -w" -o main .
-$ docker build -t examples-scratch -f Dockerfile.scratch .
-$ docker run --rm examples-scratch
+$ docker build -t google-get-scratch -f Dockerfile.scratch .
+$ docker run --rm google-get-scratch
 ```
 
-## Example onbuild
+## Example: onbuild
 
 The most straightforward way to use this image is to use a Go container as both the build and runtime environment. In your Dockerfile, writing something along the lines of the following will compile and run your project:
 
@@ -120,7 +120,7 @@ $ docker run -it --rm my-hello
 
 __Note__: the default command in `bee42/rpi-golang:onbuild` is actually `go-wrapper` run, which includes `set -x` so the binary name is printed to stderr on application startup. If this behavior is undesirable, then adding `CMD ["app"]` (or `CMD ["myapp"]`` if a Go custom import path is in use will silence it by running the built binary directly.
 
-## More Examples
+## More Examples from others
 
 * https://tour.golang.org/welcome/1
 * https://gobyexample.com/
