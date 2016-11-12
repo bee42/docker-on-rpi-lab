@@ -26,3 +26,5 @@ ENV GOPATH /go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 
 WORKDIR $GOPATH
+
+COPY go-wrapper /usr/local/bin/
