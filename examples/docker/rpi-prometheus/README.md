@@ -46,10 +46,65 @@ $ systemctl restart docker.service
 $ curl 127.0.0.1:5050/metrics
 ```
 
-
-
-
 next
 
 * Setup with prometheus
 * Create a grafana dashboard
+
+
+# Setup monitoring applications for all nodes
+
+```
+docker network create --driver overlay monitoring
+````
+
+```
+docker \
+  service create --mode global \
+  --name cadvisor \
+  --network monitoring \
+  --publish 8080 \
+  --mount type=bind,src=/,dst=/rootfs:ro \
+  --mount type=bind,src=/var/run,dst=/var/run:rw \
+  --mount type=bind,src=/sys,dst=/sys:ro \
+  --mount type=bind,src=/var/lib/docker/,dst=/var/lib/docker:ro \
+  bee42/cadvisor
+````
+
+```
+docker service create --mode global \
+  --name node-exporter \
+  --network monitoring \
+  --publish 9100 \
+  bee42/node-exporter
+```
+
+# Add monitoring containers only to to specific machines
+
+```
+docker node update --label-add machine=main-monitor <MachineName>
+```
+
+The following services will be deployed with constraints so that it will be placed on the correct nodes .
+
+```
+docker service create \
+  --name prometheus \
+  --network monitoring \
+  --publish 9090:9090 \
+  --constraint 'node.labels.machine == main-monitor' \
+   prom/prometheus
+```
+
+
+```
+docker service create \
+  --name grafana \
+  --network monitoring \
+  --publish 3000:3000 \
+   --constraint 'node.labels.machine == main-monitor' \
+  -e "GF_SERVER_ROOT_URL=http://grafana.example.com" \
+  -e "GF_SECURITY_ADMIN_PASSWORD=ADMINPASS" \
+  -e "PROMETHEUS_ENDPOINT=http://prometheus:9090" \
+  grafana/grafana
+```
