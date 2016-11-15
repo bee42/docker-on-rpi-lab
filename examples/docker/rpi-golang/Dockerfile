@@ -15,8 +15,6 @@ RUN mkdir -p /usr/local/go \
  && tar -C /usr/local -xzf go${GOLANG_VERSION}.linux-armv6l.tar.gz \
  && rm /tmp/go${GOLANG_VERSION}.linux-armv6l.tar.gz
 
-VOLUME     [ "/go" ]
-
 ENV GOROOT=/usr/local/go
 ENV GOPATH /go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
