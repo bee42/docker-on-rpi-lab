@@ -70,7 +70,7 @@ set at any pi a machine label
 {
  "labels": [  "com.bee42.machine=rpi"  ]
 }
-
+```
 
 starts at every node cadvisor to access container metrics
 
