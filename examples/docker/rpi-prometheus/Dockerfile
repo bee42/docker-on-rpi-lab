@@ -3,18 +3,17 @@ FROM bee42/rpi-alpine
 MAINTAINER Peter Rossbach <peter.rossbach@bee42.com> @PRossbach
 
 ARG PROMETHEUS_VERSION
-ENV PROMETHEUS_VERSION=${PROMETHEUS_VERSION:-1.2.1}
+ENV PROMETHEUS_VERSION=${PROMETHEUS_VERSION:-1.3.1}
 
 RUN apk update \
- && apk upgrade\
  && apk add openssl \
  && rm -rf /var/cache/apk/*
 
 RUN mkdir -p /tmp/prometheus \
  && cd /tmp/prometheus \
- && wget https://github.com/prometheus/prometheus/releases/download/v${PROMETHEUS_VERSION}/prometheus-${PROMETHEUS_VERSION}.linux-armv5.tar.gz \
- && tar xzf prometheus-${PROMETHEUS_VERSION}.linux-armv5.tar.gz \
- && cd prometheus-${PROMETHEUS_VERSION}.linux-armv5 \
+ && wget https://github.com/prometheus/prometheus/releases/download/v${PROMETHEUS_VERSION}/prometheus-${PROMETHEUS_VERSION}.linux-armv7.tar.gz \
+ && tar xzf prometheus-${PROMETHEUS_VERSION}.linux-armv7.tar.gz \
+ && cd prometheus-${PROMETHEUS_VERSION}.linux-armv7 \
  && cp prometheus /bin/prometheus \
  && cp promtool /bin/promtool \
  && mkdir -p /etc/prometheus \
