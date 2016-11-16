@@ -6,7 +6,6 @@ ARG NODE_EXPORTER_VERSION
 ENV NODE_EXPORTER_VERSION=${NODE_EXPORTER_VERSION:-0.12.0}
 
 RUN apk update \
- && apk upgrade \
  && apk add openssl \
  && rm -rf /var/cache/apk/*
 
@@ -24,5 +23,3 @@ RUN COPYDATE=`date  +'%Y'` && echo "bee42 NODE_EXPORTER" >/etc/provisioned.NODE_
 
 EXPOSE      9100
 ENTRYPOINT  [ "/bin/node_exporter" ]
-
-
