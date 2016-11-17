@@ -160,6 +160,7 @@ Nach Erstellung der Datei `device_init.yaml` könnt Ihr diese direkt mit auf die
 $ flash -c device_init.yaml hypriotos-rpi-v1.1.0.img
 ```
 
+
 ## Raspberry-Pi starten
 
 Nach dem Einsetzen der Karten könnt Ihr den Raspberry-PI starten. Wenn alles geklappt sollte dieser mit dem WLAN verbunden sein. Nun könnt Ihr Euch mit dem PI per SSH verbinden.
@@ -197,14 +198,50 @@ Im Blog der Hypriot Piraten findet Ihr jede Mengen Erklärungen zum Thema Docker
 ```
 $ cat >/etc/docker/daemon.json <<EOF
 {
- "insecure-registries": [ "beehive:5000", "192.168.178.97:5000" ]
+ "labels": [ "machine=rpi3" ],
+ "insecure-registries": [ "queenshive:5000", "192.168.178.97:5000" ]
 }
 EOF
-$ systemctl restart docker.service
 $ cat >> /etc/hosts <<EOF
-192.168.178.97 beehive
+192.168.178.97 queenshive
 EOF
-$ docker run -ti --rm beehive:5000/bee42/rpi-alpine
+$ systemctl restart docker.service
+$ docker run -ti --rm queenshive:5000/bee42/rpi-alpine
+```
+
+## Änderung auf einen Release Docker-Kandidat 1.13
+
+```
+$ ssh pirate@192.168.3.1
+$ curl -sSL https://test.docker.com/ | sh
+$ reboot
+```
+
+Upgrade Deinen Storage Driver für >1.13.0-rc1
+
+__WARNING__: Du verlierst alle deine Container und Images!
+
+```
+$ sudo vi /etc/docker/daemon.json
+{
+ "storage-driver": "overlay2" ,
+ "labels": [ "machine=rpi3" ],
+ "insecure-registries": [ "queenshive:5000", "192.168.178.97:5000" ]
+}
+$ reboot
+```
+
+## Hack: Zum reboot Deiner Worker
+
+Mit diesem Hack werden die Worker Nodes bei einem Neustart wieder automatisch
+am Manager angemeldet.
+
+```
+$ ssh pirate@192.168.3.2
+# choose a editor and add a reboot command
+$ sudo crontab -e
+@reboot docker ps
+$ reboot
 ```
 
 ## Docker Engines der Pi's auf dem Mac verfügbar machen
