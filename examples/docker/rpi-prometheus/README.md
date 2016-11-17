@@ -70,7 +70,7 @@ set at any pi a machine label
 {
  "labels": [  "com.bee42.machine=rpi"  ]
 }
-
+```
 
 starts at every node cadvisor to access container metrics
 
@@ -99,9 +99,9 @@ $ docker service create --mode global \
   bee42/rpi-node-exporter
 ```
 
-## Add monitoring infra containers only to to specific machines
+## Add monitoring infrastructure containers only to to specific machines
 
-/etc/docker/daemon.json
+`/etc/docker/daemon.json`
 
 ```
 {
