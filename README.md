@@ -105,7 +105,7 @@ Download des Images:
 ```bash
 $ mkdir OS-Images
 $ cd OS-Images
-$ HOS_VERSION=1.1.0
+$ HOS_VERSION=1.1.1
 $ HOS_URL=https://github.com/hypriot/image-builder-rpi/releases/download
 $ curl -LO ${HOS_URL}/v${HOS_VERSION}/hypriotos-rpi-v${HOS_VERSION}.img.zip
 ```
@@ -113,8 +113,26 @@ $ curl -LO ${HOS_URL}/v${HOS_VERSION}/hypriotos-rpi-v${HOS_VERSION}.img.zip
 Entpacken des Images:
 
 ```bash
-$ unzip hypriotos-rpi-v1.1.0.img.zip
+$ unzip hypriotos-rpi-v${HOS_VERSION}.img.zip
 ```
+
+### Dirty Cow
+
+![](images/dirty-cow-001.jpg)
+
+***
+* http://blog.hypriot.com/post/fix-dirty-cow-on-raspberry-pi/
+
+```
+$ docker run --rm hypriot/rpi-dirtycow
+$ sudo apt-get update
+$ sudo apt-get install raspberrypi-kernel
+$ sudo reboot
+# reconnect to your arm device
+# if you docker engine doesn't come back
+$ sudo systemctl restart docker.service
+```
+
 
 ### Erstellen der Konfiguration `device_init.yaml`
 
