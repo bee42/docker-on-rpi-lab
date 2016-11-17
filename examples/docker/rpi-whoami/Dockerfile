@@ -1,4 +1,6 @@
-FROM bee42/whoami-build
+FROM scratch
 
-ENTRYPOINT ["/output"]
+COPY output/whoami /
+
 EXPOSE 80
+ENTRYPOINT ["/whoami"]
