@@ -3,6 +3,7 @@
 ## Requirements
 * ARM Board
 * Docker
+* [rpi-golang](https://github.com/bee42/docker-on-rpi-lab/tree/master/examples/docker/rpi-golang)
 
 # Build Image
 
