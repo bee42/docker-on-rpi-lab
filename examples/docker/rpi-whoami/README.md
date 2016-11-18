@@ -7,12 +7,13 @@
 # Build Image
 
 ```bash
-$ docker build -t bee42/whoami-build -f Dockerfile.build .
+$ ./build.sh
 ```
 After this image is finish build your runtime image
 
+# Run Image
 ```
-$ docker build -t bee42/whoami .
+$ docker run -P -d bee42/rpi-whoami
 ```
 * Build with go container
   * https://hub.docker.com/r/hypriot/rpi-golang/
