@@ -85,7 +85,7 @@ $ docker \
   --mount type=bind,src=/sys,dst=/sys:ro \
   --mount type=bind,src=/var/lib/docker/,dst=/var/lib/docker:ro \
   --constraint 'node.labels.com.bee42.machine == rpi' \
-  bee42/rpi-cadvisor
+  queenshive:5000/bee42/rpi-cadvisor
 ```
 
 starts at every node node_exporter to access host metrics
@@ -96,7 +96,7 @@ $ docker service create --mode global \
   --network monitoring \
   --publish 9100 \
   --constraint 'node.labels.com.bee42.machine == rpi' \
-  bee42/rpi-node-exporter
+  queenshive:5000/bee42/rpi-node-exporter
 ```
 
 ## Add monitoring infrastructure containers only to to specific machines
