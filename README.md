@@ -10,6 +10,18 @@ Die beschriebene Idee sind die Dokumentation des Testaufbau's und die Beispiele 
 
 ![](images/ship-container-with-a-bee.png)
 
+## Raspberry-Pi-3
+
+![](images/raspberrypi-768x491.png)
+
+* http://www.rlocman.ru/i/Image/2016/02/29/RaspberryPi_3_1.jpg
+
+Docker Funktionscheck
+
+![](images/rasp2.png)
+
+* http://collabnix.com/archives/2103
+
 ## Aufbau des Labs - Erzeuge ein Queenshive
 
 Damit verschiedene Crew's im Lab separat arbeiten können, haben wir
