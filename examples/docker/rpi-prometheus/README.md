@@ -84,7 +84,7 @@ $ docker \
   --mount type=bind,src=/var/run,dst=/var/run:rw \
   --mount type=bind,src=/sys,dst=/sys:ro \
   --mount type=bind,src=/var/lib/docker/,dst=/var/lib/docker:ro \
-  --constraint 'node.labels.com.bee42.machine == rpi' \
+  --constraint 'engine.labels.com.bee42.machine == rpi' \
   queenshive:5000/bee42/rpi-cadvisor
 ```
 
@@ -95,7 +95,7 @@ $ docker service create --mode global \
   --name node-exporter \
   --network monitoring \
   --publish 9100 \
-  --constraint 'node.labels.com.bee42.machine == rpi' \
+  --constraint 'engine.labels.com.bee42.machine == rpi' \
   queenshive:5000/bee42/rpi-node-exporter
 ```
 
