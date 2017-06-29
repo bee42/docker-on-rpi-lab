@@ -3,7 +3,7 @@ FROM bee42/rpi-alpine
 MAINTAINER Peter Rossbach <peter.rossbach@bee42.com> @PRossbach
 
 ARG TRAEFIK_VERSION
-ENV TRAEFIK_VERSION=${TRAEFIK_VERSION:-1.1.0}
+ENV TRAEFIK_VERSION=${TRAEFIK_VERSION:-1.3.1}
 
 RUN apk update \
  && apk add openssl ca-certificates \
@@ -17,8 +17,8 @@ RUN mkdir -p /tmp/traefik \
  && cd / \
  && rm -rf /tmp/traefik
 
-ADD traefik.toml /etc/traefik/traefik.toml
-ADD LICENSE /etc/LICENSE.traefik
+COPY traefik.toml /etc/traefik/traefik.toml
+COPY LICENSE /etc/LICENSE.traefik
 RUN COPYDATE=`date  +'%Y'` && echo "bee42 traefik" >/etc/provisioned.traefik && date >>/etc/provisioned.traefik && echo >>/etc/provisioned.traefik && echo " Copyright ${COPYDATE} by <peter.rossbach@bee42.com> bee42 solutions gmbh" >>/etc/provisioned.traefik
 
 EXPOSE     80 8080
